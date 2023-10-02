@@ -32,9 +32,9 @@ if __name__ == '__main__':
             user.password_hash = user.username + 'password'
             users.append(user)
 
-    db.session.add_all(users)
+        db.session.add_all(users)
 
-    db.session.commit()
+        db.session.commit()
 
 
         
