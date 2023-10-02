@@ -44,9 +44,18 @@ class Signup(Resource):
         except IntegrityError:
             return {'error':'422 Unprocessable Entity'}, 422
 
+class CheckSession(Resource):
+    def get(self):
+        if session.get('user_id'):
+            user = User.query.filter(User.id==session['user_id']).first()
+            return user.to_dict(), 200
+        return {'error':'401 Unauthorized'}, 401
+
+
+
 
 api.add_resource(Signup, '/signup', endpoint='signup')
-
+api.add_resource(CheckSession, '/checksession', endpoint='checksession')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
