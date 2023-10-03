@@ -19,11 +19,14 @@ const SignUpForm = () => {
     password: yup
       .string()
       .required("Must enter password")
-      .min(8, "Password must be at least 8 characters")
-      .minLowercase(1, "Password must contain at least one lower case letter")
-      .minUppercase(1, "Password must contain at least one upper case letter")
-      .minNumbers(1, "Password must contain at least one number")
-      .minSymbols(1, "Password must contain at least one special character"),
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[~!@#$%^&*()])(?=.{8,})/,
+        "Must Contain at least 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+      ),
+    confirm_password: yup
+      .string()
+      .required()
+      .oneOf([yup.ref("password"), null], "Passwords must match"),
     image_url: yup.string().url("Optional user profile photo url"),
   });
 
@@ -38,7 +41,7 @@ const SignUpForm = () => {
         },
         body: JSON.stringify(values, null, 2),
       }).then((resp) => {
-        if (resp.status == 200) {
+        if (resp.status === 200) {
           setRefreshPage(!refreshPage);
         }
       });
@@ -56,7 +59,16 @@ const SignUpForm = () => {
         <br />
         <input id="password" name="password" onChange={formik.handleChange} value={formik.values.password} />
         <p style={{ color: "red" }}>{formik.errors.password}</p>
-        <label htmlFor="image_url">User profile photo Url</label>
+        <label htmlFor="confirm_password">Confirm Password</label>
+        <br />
+        <input
+          id="confirm_password"
+          name="confirm_password"
+          onChange={formik.handleChange}
+          value={formik.values.confirm_password}
+        />
+        <p style={{ color: "red" }}>{formik.errors.confirm_password}</p>
+        <label htmlFor="image_url">User Profile Photo url(Optional)</label>
         <br />
         <input id="image_url" name="image_url" onChange={formik.handleChange} value={formik.values.image_url} />
         <p style={{ color: "red" }}>{formik.errors.image_url}</p>
@@ -65,3 +77,5 @@ const SignUpForm = () => {
     </div>
   );
 };
+
+export default SignUpForm;
