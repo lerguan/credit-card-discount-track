@@ -72,7 +72,7 @@ const SignUpForm = () => {
         <br />
         <input id="image_url" name="image_url" onChange={formik.handleChange} value={formik.values.image_url} />
         <p style={{ color: "red" }}>{formik.errors.image_url}</p>
-        <button type="submit">Submit</button>
+        <button type="submit">Sign Up</button>
       </form>
     </div>
   );
