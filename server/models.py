@@ -13,7 +13,7 @@ class User(db.Model, SerializerMixin):
     email = db.Column(db.String, unique=True, nullable=False)
     _password_hash = db.Column(db.String)
 
-    # credit_cards = db.relationship('Credit_card', backref='user')
+    credit_cards = db.relationship('Creditcard', backref='user')
 
     @hybrid_property
     def password_hash(self):
@@ -30,7 +30,13 @@ class User(db.Model, SerializerMixin):
     def __repr__(self):
         return f'<User {self.email}>'
 
+class CreditCard(db.Model, SerializerMixin):
+    __tablename__ = 'credit_cards'
 
+    id = db.Column(db.Integer, primary_key=True)
+    card_name = db.Column(db.String, nullable=False)
+    user_id = db.Column(db.Integer, foreign_key='users.id')
 
+    stores = db.relationship('Store', secondary=cc_store, backref='credit_cards')
 
 
