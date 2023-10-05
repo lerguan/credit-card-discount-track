@@ -27,7 +27,6 @@ if __name__ == '__main__':
                 emails = fake.email()
             emails.append(email)
             user = User(email = email,
-                        image_url = fake.url(),
                         )
             user.password_hash = user.email + 'password'
             users.append(user)

@@ -20,19 +20,13 @@ def index():
     return '<h1>Project Server</h1>'
 
 class Signup(Resource):
-    def get(self):
-        users = User.query.all()
-        return [user.to_dict() for user in users], 200
-    
     def post(self):
         request_json = request.get_json()
         email = request_json.get('email')
         password = request_json.get('password')
-        # image_url = request_json.get('image_url')
 
         user = User(
             email = email,
-            # image_url = image_url,
         )
 
         user.password_hash = password
