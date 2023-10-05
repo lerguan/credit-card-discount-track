@@ -41,5 +41,21 @@ class CreditCard(db.Model, SerializerMixin):
 
     def __repr__(self):
         return f'<CreditCard {self.card_name}>'
+    
+class Store(db.Model, SerializerMixin):
+    __tablename__ = 'stores'
+
+    id = db.Column(db.Integer, primary_key=True)
+    store_name = db.Column(db.String, nullable=False)
+    discount = db.Column(db.String)
+    expire_date = db.Column(db.DateTime)
+
+    credit_cards = db.relationship('CreditCard', secondary=cc_store, backref='stores')
+
+    def __repr__(self):
+        return f'<Store {self.store_name} has {self.discount} on {self.credit_cards} expires on {self.expire_date}> '
+
+
+
 
 
