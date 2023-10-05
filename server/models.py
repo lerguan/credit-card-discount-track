@@ -36,8 +36,7 @@ class CreditCard(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     card_name = db.Column(db.String, nullable=False)
-    user_id = db.Column(db.Integer, foreign_key='users.id')
-
+    
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     store_id = db.Column(db.Integer, db.ForeignKey('stores.id'))
 
