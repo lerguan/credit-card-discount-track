@@ -19,17 +19,17 @@ if __name__ == '__main__':
         print("Starting seed...")
 
         users=[]
-        usernames=[]
+        emails=[]
 
         for i in range(10):
-            username = fake.email()
-            while username in usernames:
-                username = fake.email()
-            usernames.append(username)
-            user = User(username = username,
+            email = fake.email()
+            while email in emails:
+                emails = fake.email()
+            emails.append(email)
+            user = User(email = email,
                         image_url = fake.url(),
                         )
-            user.password_hash = user.username + 'password'
+            user.password_hash = user.email + 'password'
             users.append(user)
 
         db.session.add_all(users)

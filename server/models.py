@@ -10,7 +10,7 @@ class User(db.Model, SerializerMixin):
     serialize_rules = ('-credit_cards.user', '-_password_hash',)
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String, unique=True, nullable=False)
+    email = db.Column(db.String, unique=True, nullable=False)
     _password_hash = db.Column(db.String)
     image_url = db.Column(db.String)
 
@@ -29,7 +29,7 @@ class User(db.Model, SerializerMixin):
         return bcrypt.check_password_hash(self._password_hash, password.encode('utf-8'))
     
     def __repr__(self):
-        return f'<User {self.username}>'
+        return f'<User {self.email}>'
 
 
 

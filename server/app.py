@@ -20,15 +20,19 @@ def index():
     return '<h1>Project Server</h1>'
 
 class Signup(Resource):
+    def get(self):
+        users = User.query.all()
+        return [user.to_dict() for user in users], 200
+    
     def post(self):
         request_json = request.get_json()
-        username = request_json.get('username')
+        email = request_json.get('email')
         password = request_json.get('password')
-        image_url = request_json.get('image_url')
+        # image_url = request_json.get('image_url')
 
         user = User(
-            username = username,
-            image_url = image_url,
+            email = email,
+            # image_url = image_url,
         )
 
         user.password_hash = password
@@ -52,12 +56,13 @@ class CheckSession(Resource):
         return {'error':'401 Unauthorized'}, 401
 
 class Login(Resource):
+    
     def post(self):
         request_json = request.get_json()
-        username = request_json.get('username')
+        email = request_json.get('email')
         password = request_json.get('password')
 
-        user = User.query.filter(User.username==username).first()
+        user = User.query.filter(User.email==email).first()
 
         if user:
             if user.authenticate(password):
