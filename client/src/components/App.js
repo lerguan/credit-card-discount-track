@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import Login from "../pages/Login";
+import NavBar from "./NavBar";
 
 function App() {
   const [user, setUser] = useState("");
@@ -17,7 +18,7 @@ function App() {
 
   return (
     <>
-      {/* <NavBar user={user} setUser={setUser} /> */}
+      <NavBar user={user} setUser={setUser} />
       <main>
         <Switch>
           <Route path="/">
