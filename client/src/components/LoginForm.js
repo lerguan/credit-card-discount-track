@@ -2,7 +2,7 @@ import react, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
-const LoginForm = () => {
+const LoginForm = ({ onLogin }) => {
   const [users, setUsers] = useState([{}]);
   const [refreshPage, setRefreshPage] = useState(false);
   const [errors, setErrors] = useState([]);
@@ -24,13 +24,13 @@ const LoginForm = () => {
     initialValues: { email: "", password: "" },
     validationSchema: formSchema,
     onSubmit: (values) => {
-      fetch("users", {
+      fetch("/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values, null, 2),
       }).then((resp) => {
         if (resp.ok) {
-          resp.json().then(setUsers(users));
+          resp.json().then((user) => onLogin(user));
         } else {
           resp.json().then((err) => setErrors(err.errors));
         }
