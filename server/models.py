@@ -14,6 +14,7 @@ class User(db.Model, SerializerMixin):
     _password_hash = db.Column(db.String)
 
     credit_cards = db.relationship('Creditcard', backref='user')
+    stores = association_proxy('credit_cards', 'store', creator=lambda sr:CreditCard(store=sr))
 
     @hybrid_property
     def password_hash(self):
@@ -37,7 +38,8 @@ class CreditCard(db.Model, SerializerMixin):
     card_name = db.Column(db.String, nullable=False)
     user_id = db.Column(db.Integer, foreign_key='users.id')
 
-    stores = db.relationship('Store', secondary=cc_store, backref='credit_cards')
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    store_id = db.Column(db.Integer, db.ForeignKey('stores.id'))
 
     def __repr__(self):
         return f'<CreditCard {self.card_name}>'
@@ -50,7 +52,8 @@ class Store(db.Model, SerializerMixin):
     discount = db.Column(db.String)
     expire_date = db.Column(db.DateTime)
 
-    credit_cards = db.relationship('CreditCard', secondary=cc_store, backref='stores')
+    credit_cards = db.relationship('CreditCard', backref='store')
+    users = association_proxy('credit_cards', 'user', creator=lambda ur:CreditCard(ur))
 
     def __repr__(self):
         return f'<Store {self.store_name} has {self.discount} on {self.credit_cards} expires on {self.expire_date}> '
