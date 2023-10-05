@@ -2,15 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
-const SignUpForm = () => {
-  const [users, setUsers] = useState([{}]);
+const SignUpForm = ({ onLogin }) => {
+  const [user, setUser] = useState([{}]);
   const [refreshPage, setRefreshPage] = useState(false);
+  const [errors, setErrors] = useState([]);
 
   useEffect(() => {
     fetch("/users")
       .then((resp) => resp.json())
       .then((data) => {
-        setUsers(data);
+        setUser(data);
       });
   }, [refreshPage]);
 
@@ -41,8 +42,10 @@ const SignUpForm = () => {
         },
         body: JSON.stringify(values, null, 2),
       }).then((resp) => {
-        if (resp.status === 200) {
-          setRefreshPage(!refreshPage);
+        if (resp.ok) {
+          resp.json().then((user) => onLogin(user));
+        } else {
+          resp.json().then((err) => setErrors(err.errors));
         }
       });
     },
