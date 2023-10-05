@@ -39,4 +39,7 @@ class CreditCard(db.Model, SerializerMixin):
 
     stores = db.relationship('Store', secondary=cc_store, backref='credit_cards')
 
+    def __repr__(self):
+        return f'<CreditCard {self.card_name}>'
+
 
