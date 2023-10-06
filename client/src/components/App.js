@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import Login from "../pages/Login";
+import Stores from "../pages/Stores";
 import NavBar from "./NavBar";
 
 function App() {
@@ -21,9 +22,12 @@ function App() {
       <NavBar user={user} setUser={setUser} />
       <main>
         <Switch>
-          <Route path="/">
-            {/* <CreditCardList /> */}
+          <Route path="/new">
+            <NewDiscount user={user} />
             credit card list
+          </Route>
+          <Route path="/stores">
+            <Stores />
           </Route>
         </Switch>
       </main>
