@@ -27,8 +27,9 @@ const NavBar = ({ user, setUser }) => {
         activeStyle={{
           background: "rgb(143, 172, 162)",
         }}
+        onClick={handleLogoutClick}
       >
-        Login/Sign Up
+        Logout
       </NavLink>
       <NavLink
         to="/new"
