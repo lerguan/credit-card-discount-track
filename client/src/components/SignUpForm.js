@@ -7,14 +7,13 @@ const SignUpForm = ({ onLogin }) => {
   const [refreshPage, setRefreshPage] = useState(false);
   const [errors, setErrors] = useState([]);
 
-  //   useEffect(() => {
-  //     fetch("/signup")
-  //       .then((resp) => resp.json())
-  //       .then((data) => {
-  //         setUser(data);
-  //         console.log(data);
-  //       });
-  //   }, [refreshPage]);
+  useEffect(() => {
+    fetch("/signup")
+      .then((resp) => resp.json())
+      .then((user) => {
+        setUser(user);
+      });
+  }, [refreshPage]);
 
   const formSchema = yup.object().shape({
     email: yup.string().email("Invalid email").required("Must enter email"),
@@ -43,7 +42,10 @@ const SignUpForm = ({ onLogin }) => {
         body: JSON.stringify(values, null, 2),
       }).then((resp) => {
         if (resp.ok) {
-          resp.json().then((user) => onLogin(user));
+          resp.json().then((user) => {
+            onLogin(user);
+            setRefreshPage(!refreshPage);
+          });
         } else {
           resp.json().then((err) => setErrors(err.errors));
         }
