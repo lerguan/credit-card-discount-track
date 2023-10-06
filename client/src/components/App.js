@@ -4,9 +4,10 @@ import Login from "../pages/Login";
 import Stores from "../pages/Stores";
 import NewDiscount from "../pages/NewDiscount";
 import NavBar from "./NavBar";
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     fetch("/checksession").then((resp) => {
@@ -19,7 +20,7 @@ function App() {
   if (!user) return <Login onLogin={setUser} />;
 
   return (
-    <>
+    <BrowserRouter>
       <NavBar user={user} setUser={setUser} />
       <main>
         <Switch>
@@ -31,7 +32,7 @@ function App() {
           </Route>
         </Switch>
       </main>
-    </>
+    </BrowserRouter>
   );
 }
 

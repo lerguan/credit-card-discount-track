@@ -7,13 +7,14 @@ const SignUpForm = ({ onLogin }) => {
   const [refreshPage, setRefreshPage] = useState(false);
   const [errors, setErrors] = useState([]);
 
-  useEffect(() => {
-    fetch("/users")
-      .then((resp) => resp.json())
-      .then((data) => {
-        setUser(data);
-      });
-  }, [refreshPage]);
+  //   useEffect(() => {
+  //     fetch("/signup")
+  //       .then((resp) => resp.json())
+  //       .then((data) => {
+  //         setUser(data);
+  //         console.log(data);
+  //       });
+  //   }, [refreshPage]);
 
   const formSchema = yup.object().shape({
     email: yup.string().email("Invalid email").required("Must enter email"),
@@ -28,14 +29,13 @@ const SignUpForm = ({ onLogin }) => {
       .string()
       .required()
       .oneOf([yup.ref("password"), null], "Passwords must match"),
-    image_url: yup.string().url("Optional user profile photo url"),
   });
 
   const formik = useFormik({
     initialValues: { email: "", password: "" },
     validationSchema: formSchema,
     onSubmit: (values) => {
-      fetch("users", {
+      fetch("signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -71,10 +71,6 @@ const SignUpForm = ({ onLogin }) => {
           value={formik.values.confirm_password}
         />
         <p style={{ color: "red" }}>{formik.errors.confirm_password}</p>
-        <label htmlFor="image_url">User Profile Photo url(Optional)</label>
-        <br />
-        <input id="image_url" name="image_url" onChange={formik.handleChange} value={formik.values.image_url} />
-        <p style={{ color: "red" }}>{formik.errors.image_url}</p>
         <button type="submit">Sign Up</button>
       </form>
     </div>
