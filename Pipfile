@@ -15,6 +15,7 @@ faker = "*"
 psycopg2-binary = "*"
 gunicorn = "*"
 flask-bcrypt = "*"
+sqlalchemy = "1.4.49"
 
 [requires]
 python_full_version = "3.8.13"
