@@ -4,17 +4,8 @@ import * as yup from "yup";
 
 const LoginForm = ({ onLogin }) => {
   const [user, setUser] = useState([{}]);
-  const [password, setPassword] = useState("");
   const [refreshPage, setRefreshPage] = useState(false);
   const [errors, setErrors] = useState([]);
-
-  // useEffect(() => {
-  //   fetch("/login")
-  //     .then((resp) => resp.json())
-  //     .then((data) => {
-  //       setUser(data);
-  //     });
-  // }, [refreshPage]);
 
   const formSchema = yup.object().shape({
     email: yup.string().required().email("Invalid Email Address"),
@@ -29,17 +20,13 @@ const LoginForm = ({ onLogin }) => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values, null, 2),
-      })
-        .then((resp) => resp.json())
-        .then((data) => {
-          console.log(data);
-        });
-      //   if (resp.ok) {
-      //     resp.json().then((user) =>  onLogin(user));
-      //   } else {
-      //     resp.json().then((err) => setErrors(err.errors));
-      //   }
-      // });
+      }).then((resp) => {
+        if (resp.ok) {
+          resp.json().then((user) => onLogin(user));
+        } else {
+          resp.json().then((err) => setErrors(err.errors));
+        }
+      });
     },
   });
 
