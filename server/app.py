@@ -12,11 +12,6 @@ from config import app, db, api
 # Add your model imports
 from models import User, CreditCard, Store
 
-
-@app.route('/')
-def index():
-    return '<h1>Project Server</h1>'
-
 class Signup(Resource):
     def post(self):
         request_json = request.get_json()
@@ -35,7 +30,7 @@ class Signup(Resource):
 
             session['user_id'] = user.id
 
-            return user.to_dict(), 201
+            return make_response(jsonify(user.to_dict()), 201)
         
         except IntegrityError:
             return {'error':'422 Unprocessable Entity'}, 422
@@ -44,7 +39,7 @@ class CheckSession(Resource):
     def get(self):
         if session.get('user_id'):
             user = User.query.filter(User.id==session['user_id']).first()
-            return user.to_dict(), 200
+            return make_response(jsonify(user.to_dict()), 200)
         return {'error':'401 Unauthorized'}, 401
 
 class Login(Resource):
@@ -58,7 +53,9 @@ class Login(Resource):
         if user:
             if user.authenticate(password):
                 session['user_id'] = user.id
-                return user.to_dict(), 200
+                # db.session.add(user)
+                # db.session.commit()
+                return make_response(jsonify(user.to_dict()), 200)
             
         return {'error':'401 Unauthoerized'}, 401
     
@@ -81,7 +78,6 @@ class CreditCards(Resource):
         data = request.get_json()
         new_credit_card = CreditCard(
             card_name=data['card_name'],
-            # user_id=session['user_id']
         )
         db.session.add(new_credit_card)
         db.session.committ()
