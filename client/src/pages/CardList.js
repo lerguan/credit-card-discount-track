@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CreditCardCard from "../components/CreditCardCard";
 
 const CardList = ({ userCreditCards, onDeleteCreditCard, onDisplayStores }) => {
+  const credit_cards = userCreditCards;
   return (
     <ul className="credit-cards">
-      {userCreditCards.map((credit_card) => {
+      {credit_cards.map((credit_card) => {
         return (
           <CreditCardCard
             key={credit_card.id}
