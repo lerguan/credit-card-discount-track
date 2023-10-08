@@ -1,15 +1,23 @@
-import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import StoreCard from "../components/StoreCard";
 
-const Stores = ({ user, setUser }) => {
-  const [store_name, setStore_name] = useState("");
-  const [expire_date, setExpire_date] = useState("");
-  const [discount, setDiscount] = useState("");
-  const [card_name, setCard_name] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    return <>Store Lists</>;
-  };
+const Stores = ({ userCreditCards, onDeleteDiscount, onEditDiscount }) => {
+  const credit_cards = userCreditCards;
+  // console.log(credit_cards);
+  return (
+    <ul className="credit-cards">
+      {credit_cards.map((credit_card) => {
+        return (
+          <StoreCard
+            key={credit_card.id}
+            credit_card={credit_card}
+            onDeleteDiscount={onDeleteDiscount}
+            onEditDiscount={onEditDiscount}
+          />
+        );
+      })}
+    </ul>
+  );
 };
+
 export default Stores;
