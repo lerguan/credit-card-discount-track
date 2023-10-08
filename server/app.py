@@ -80,7 +80,7 @@ class CreditCards(Resource):
             card_name=data['card_name'],
         )
         db.session.add(new_credit_card)
-        db.session.committ()
+        db.session.commit()
 
         return make_response(new_credit_card.to_dict(), 201)
 
@@ -123,7 +123,7 @@ class Stores(Resource):
             expire_date=data['expire_date']
         )
         db.session.add(new_store)
-        db.session.committ()
+        db.session.commit()
 
         return make_response(new_store.to_dict(), 201)
 

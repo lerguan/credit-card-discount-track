@@ -52,7 +52,7 @@ const NewDiscount = ({ onAddDiscount, onAddCard }) => {
             name="store_name"
             placeholder="Store Name"
             value={store_name}
-            onChange={(e) => setCard_name(e.target.value)}
+            onChange={(e) => setStore_name(e.target.value)}
           />
         </label>
         <label>
