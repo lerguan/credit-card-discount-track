@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
-const Stores = () => {
+const Stores = ({ user, setUser }) => {
   const [store_name, setStore_name] = useState("");
   const [expire_date, setExpire_date] = useState("");
   const [discount, setDiscount] = useState("");

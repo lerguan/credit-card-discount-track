@@ -28,7 +28,7 @@ function App() {
             <NewDiscount user={user} />
           </Route>
           <Route path="/stores">
-            <Stores />
+            <Stores user={user} setUser={setUser} />
           </Route>
         </Switch>
       </main>
