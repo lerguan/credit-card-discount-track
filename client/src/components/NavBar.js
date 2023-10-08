@@ -22,13 +22,13 @@ const NavBar = ({ user, setUser }) => {
     <div>
       <NavLink
         exact
-        to="/main"
+        to="/creditcards"
         style={linkStyles}
         activeStyle={{
           background: "rgb(143, 172, 162)",
         }}
       >
-        Main
+        Credit Cards
       </NavLink>
       <NavLink
         to="/stores"

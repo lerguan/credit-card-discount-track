@@ -75,7 +75,7 @@ function App() {
     <BrowserRouter>
       <NavBar user={user} setUser={setUser} />
       <Switch>
-        <Route path="/main">
+        <Route path="/creditcards">
           <CardList
             userCreditCards={userCreditCards}
             onDeleteCreditCard={handleDeleteCreditCard}
