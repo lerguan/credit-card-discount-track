@@ -31,15 +31,6 @@ const NavBar = ({ user, setUser }) => {
         Main
       </NavLink>
       <NavLink
-        to="/new"
-        style={linkStyles}
-        activeStyle={{
-          background: "rgb(143, 172, 162)",
-        }}
-      >
-        Add New Discount
-      </NavLink>
-      <NavLink
         to="/stores"
         style={linkStyles}
         activeStyle={{

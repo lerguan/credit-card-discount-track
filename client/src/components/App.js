@@ -3,7 +3,6 @@ import { Switch, Route, useHistory } from "react-router-dom";
 import Login from "../pages/Login";
 import Stores from "../pages/Stores";
 import CardDiscount from "../pages/CardDiscount";
-import NewDiscount from "../pages/NewDiscount";
 import CardList from "../pages/CardList";
 import NavBar from "./NavBar";
 import { BrowserRouter } from "react-router-dom";
@@ -47,7 +46,6 @@ function App() {
     })
       .then((resp) => resp.json())
       .then((newCreditCard) => {
-        console.log(newCreditCard);
         setDisplayForm(!displayForm);
         const newUserCardArray = [...userCreditCards, newCreditCard];
         setUserCreditCards(newUserCardArray);
@@ -105,9 +103,6 @@ function App() {
             )}
             <button onClick={() => setDisplayForm(!displayForm)}>Add New Credit Card</button>
           </div>
-        </Route>
-        <Route exact path="/new">
-          <NewDiscount user={user} onAddCardDiscount={handleAddCardDiscount} />
         </Route>
         <Route exact path="/stores">
           <Stores
