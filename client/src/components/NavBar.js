@@ -22,14 +22,13 @@ const NavBar = ({ user, setUser }) => {
     <div>
       <NavLink
         exact
-        to="/"
+        to="/main"
         style={linkStyles}
         activeStyle={{
           background: "rgb(143, 172, 162)",
         }}
-        onClick={handleLogoutClick}
       >
-        Logout
+        Main
       </NavLink>
       <NavLink
         to="/new"
@@ -48,6 +47,17 @@ const NavBar = ({ user, setUser }) => {
         }}
       >
         Stores
+      </NavLink>
+      <NavLink
+        exact
+        to="/logout"
+        style={linkStyles}
+        activeStyle={{
+          background: "rgb(143, 172, 162)",
+        }}
+        onClick={handleLogoutClick}
+      >
+        Logout
       </NavLink>
     </div>
   );
