@@ -1,27 +1,26 @@
 import React from "react";
 
-const CreditCardCard = ({ credit_card, store, onDeleteCreditCard, onDisplayStores, onAddNewDiscount }) => {
-  const { card_id, card_name } = credit_card;
-  const { store_id, store_name, discount, expire_date } = store;
-
+const CreditCardCard = ({ credit_card, onDeleteCreditCard, onDisplayStores, onAddNewDiscount }) => {
+  const { id, card_name, store } = credit_card;
+  console.log(card_name);
   const handleDelete = () => {
-    fetch(`/credit_cards/${card_id}`, { method: "DELETE" });
+    fetch(`/credit_cards/${id}`, { method: "DELETE" });
 
-    onDeleteCreditCard(card_id);
-
-    const handleCardClick = () => {
-      fetch(`/stores/${store_id}`)
-        .then((resp) => resp.json())
-        .then((store_list) => onDisplayStores(store_list));
-    };
-
-    return (
-      <li className="creditcard-card">
-        <h2 onClick={handleCardClick}>{card_name}</h2>
-        <button onClick={handleDelete}>Remove</button>
-      </li>
-    );
+    onDeleteCreditCard(id);
   };
+
+  const handleCardClick = () => {
+    fetch(`/stores/${store.id}`)
+      .then((resp) => resp.json())
+      .then((store_list) => onDisplayStores(store_list));
+  };
+
+  return (
+    <li className="creditcard-card">
+      <h2 onClick={handleCardClick}>{card_name}</h2>
+      <button onClick={handleDelete}>Remove</button>
+    </li>
+  );
 };
 
 export default CreditCardCard;

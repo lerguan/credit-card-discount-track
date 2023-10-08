@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
-const NewDiscount = ({ onAddDiscount, onAddCard }) => {
+const NewDiscount = ({ onAddCardDiscount, onAddCard }) => {
   const [card_name, setCard_name] = useState("");
   const [store_name, setStore_name] = useState("");
   const [discount, setDiscount] = useState("");
@@ -29,7 +29,7 @@ const NewDiscount = ({ onAddDiscount, onAddCard }) => {
       }),
     })
       .then((resp) => resp.json())
-      .then((newDiscount) => onAddDiscount(newDiscount));
+      .then((newDiscount) => onAddCardDiscount(newDiscount));
   };
 
   return (
