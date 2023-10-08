@@ -28,6 +28,11 @@ function App() {
     setUserCreditCards(newUserCardArray);
   };
 
+  const handleAddNewCreditCard = () => {
+    // const newUserCardArray = [...userCreditCards, newCreditCard]
+    // setUserCreditCards(newUserCardArray)
+  };
+
   // const handleAddCardDiscount = (newDiscount) {
   //   const newCardDiscountArray = [...useSyncExternalStore, newDiscount]
   //   set
@@ -54,6 +59,7 @@ function App() {
           </Route>
         </Switch>
       </main>
+      <button onClick={handleAddNewCreditCard}>Add New Credit Card</button>
     </BrowserRouter>
   );
 }
