@@ -2,7 +2,7 @@ import React from "react";
 
 const CreditCardCard = ({ credit_card, onDeleteCreditCard, onDisplayStores, onAddNewDiscount }) => {
   const { id, card_name, store } = credit_card;
-  console.log(card_name);
+
   const handleDelete = () => {
     fetch(`/credit_cards/${id}`, { method: "DELETE" });
 

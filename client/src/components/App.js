@@ -9,16 +9,24 @@ import { BrowserRouter } from "react-router-dom";
 
 function App() {
   const [user, setUser] = useState(null);
-
+  const [userCards, setUserCards] = useState(null);
   useEffect(() => {
     fetch("/checksession").then((resp) => {
       if (resp.ok) {
-        resp.json().then((user) => setUser(user));
+        resp.json().then((user) => {
+          setUser(user);
+          setUserCards(user.credit_cards);
+        });
       }
     });
   }, []);
 
   if (!user) return <Login onLogin={setUser} />;
+
+  const handleDeleteCreditCard = (id) => {
+    const newUserCardArray = userCards.filter((id) => id !== id);
+    setUserCards(newUserCardArray);
+  };
 
   // const handleAddCardDiscount = (newDiscount) {
   //   const newCardDiscountArray = [...useSyncExternalStore, newDiscount]
@@ -42,12 +50,7 @@ function App() {
             />
           </Route>
           <Route exact path="/">
-            <CardList
-              user={user}
-              // credit_cards={credit_cards}
-              // onDeleteCard={onDeleteCard}
-              // onDisplayStores={onDisplayStores}
-            />
+            <CardList userCreditCards={userCards} onDeleteCreditCard={handleDeleteCreditCard} />
           </Route>
         </Switch>
       </main>
