@@ -7,6 +7,7 @@ const Login = ({ onLogin }) => {
 
   return (
     <>
+      <h1>Discount Tracker</h1>
       {showLogin ? (
         <>
           <LoginForm onLogin={onLogin} />
