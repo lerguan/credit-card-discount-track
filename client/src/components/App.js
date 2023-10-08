@@ -11,7 +11,9 @@ import { BrowserRouter } from "react-router-dom";
 function App() {
   const [user, setUser] = useState(null);
   const [userCreditCards, setUserCreditCards] = useState(null);
+  const [displayForm, setDisplayForm] = useState(false);
   const [userSingleCard, setSingleCard] = useState(null);
+  const [card_name, setCard_name] = useState("");
   const history = useHistory();
 
   useEffect(() => {
@@ -33,21 +35,37 @@ function App() {
     setUserCreditCards(newUserCardArray);
   };
 
-  const handleAddNewCreditCard = () => {
-    // const newUserCardArray = [...userCreditCards, newCreditCard]
-    // setUserCreditCards(newUserCardArray)
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetch("/credit_cards", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        card_name: card_name,
+        user_id: user.id,
+      }),
+    })
+      .then((resp) => resp.json())
+      .then((newCreditCard) => {
+        console.log(newCreditCard);
+        setDisplayForm(!displayForm);
+        const newUserCardArray = [...userCreditCards, newCreditCard];
+        setUserCreditCards(newUserCardArray);
+      });
   };
 
-  // const handleAddCardDiscount = (newDiscount) {
-  //   const newCardDiscountArray = [...useSyncExternalStore, newDiscount]
-  //   set
-  // }
+  const handleAddCardDiscount = (newCardDiscount) => {
+    const newCardDiscountArray = [...userCreditCards, newCardDiscount];
+    // console.log(newCardDiscountArray);
+    setUserCreditCards(newCardDiscountArray);
+    // console.log(userCreditCards);
+  };
 
   const handleDisplayDiscounts = (id) => {
     const singleCreditCard = userCreditCards.filter((userCreditCard) => userCreditCard.id == id);
     setSingleCard(singleCreditCard);
     // console.log(singleCreditCard);
-    history.push("/card_discounts");
+    history.push("/new");
   };
 
   const handleDeleteDiscount = (id) => {
@@ -65,10 +83,31 @@ function App() {
             onDeleteCreditCard={handleDeleteCreditCard}
             onDisplayDiscounts={handleDisplayDiscounts}
           />
-          <button onClick={handleAddNewCreditCard}>Add New Credit Card</button>
+          <div>
+            {displayForm ? (
+              <div className={"visible"}>
+                <form onSubmit={handleSubmit}>
+                  <label>
+                    Input Credit Card Name:
+                    <input
+                      type="text"
+                      name="card_name"
+                      placeholder="Credit Card Name"
+                      value={card_name}
+                      onChange={(e) => setCard_name(e.target.value)}
+                    />
+                  </label>
+                  <button type="submit">Add</button>
+                </form>
+              </div>
+            ) : (
+              <div className={"invisible"}></div>
+            )}
+            <button onClick={() => setDisplayForm(!displayForm)}>Add New Credit Card</button>
+          </div>
         </Route>
         <Route exact path="/new">
-          {/* <NewDiscount user={user} onAddCardDiscount={handleAddCardDiscount} /> */}
+          <NewDiscount user={user} onAddCardDiscount={handleAddCardDiscount} />
         </Route>
         <Route exact path="/stores">
           <Stores

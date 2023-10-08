@@ -78,6 +78,7 @@ class CreditCards(Resource):
         data = request.get_json()
         new_credit_card = CreditCard(
             card_name=data['card_name'],
+            user_id=session.get('user_id')
         )
         db.session.add(new_credit_card)
         db.session.commit()

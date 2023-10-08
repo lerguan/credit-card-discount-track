@@ -1,24 +1,15 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
-const NewDiscount = ({ onAddCardDiscount, onAddCard }) => {
+const NewDiscount = ({ user, onAddCardDiscount }) => {
   const [card_name, setCard_name] = useState("");
   const [store_name, setStore_name] = useState("");
   const [discount, setDiscount] = useState("");
   const [expire_date, setExpire_date] = useState("");
+  const [store_id, setStore_id] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("/credit_cards", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        card_name: card_name,
-      }),
-    })
-      .then((resp) => resp.json())
-      .then((newCard) => onAddCard(newCard));
-
     fetch("/stores", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -29,7 +20,22 @@ const NewDiscount = ({ onAddCardDiscount, onAddCard }) => {
       }),
     })
       .then((resp) => resp.json())
-      .then((newDiscount) => onAddCardDiscount(newDiscount));
+      .then((store) => {
+        console.log(store);
+        setStore_id(store.id);
+      });
+
+    fetch("/credit_cards", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        card_name: card_name,
+        user_id: user.id,
+        store_id: store_id,
+      }),
+    })
+      .then((resp) => resp.json())
+      .then((newCardDiscount) => onAddCardDiscount(newCardDiscount));
   };
 
   return (
