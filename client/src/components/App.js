@@ -19,7 +19,6 @@ function App() {
       if (resp.ok) {
         resp.json().then((user) => {
           setUser(user);
-          console.log(user);
           setUserCreditCards(user.credit_cards);
           // setUserStores(user.stores);
         });
@@ -50,6 +49,12 @@ function App() {
     // console.log(singleCreditCard);
     history.push("/card_discounts");
   };
+
+  const handleDeleteDiscount = (id) => {
+    const newUserCardArray = userCreditCards.filter((userCreditCard) => userCreditCard.store.id !== id);
+    setUserCreditCards(newUserCardArray);
+  };
+
   return (
     <BrowserRouter>
       <NavBar user={user} setUser={setUser} />
@@ -68,8 +73,8 @@ function App() {
         <Route exact path="/stores">
           <Stores
             userCreditCards={userCreditCards}
-            // onDeleteDiscount={onDeleteDiscount}
-            // onDisplayDiscounts={onDisplayDiscounts}
+            onDeleteDiscount={handleDeleteDiscount}
+            // onEditDiscount={handleEditDiscount}
           />
         </Route>
         <Route exact path="/card_discounts">

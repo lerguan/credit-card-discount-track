@@ -4,9 +4,8 @@ const CreditCardCard = ({ credit_card, onDeleteCreditCard, onDisplayDiscounts, o
   const { id, card_name, store } = credit_card;
   // console.log(store);
   const handleDelete = () => {
-    fetch(`/credit_cards/${id}`, { method: "DELETE" });
-
     onDeleteCreditCard(id);
+    fetch(`/credit_cards/${id}`, { method: "DELETE" });
   };
 
   const handleDiscountClick = () => {

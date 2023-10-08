@@ -2,7 +2,7 @@ import React from "react";
 
 const CardDiscount = ({ userSingleCard }) => {
   const stores = userSingleCard.store;
-  console.log(stores);
+  //   console.log(stores);
 
   return <div> hello </div>;
 };
