@@ -7,14 +7,11 @@ const CreditCardCard = ({ credit_card, onDeleteCreditCard, onDisplayDiscounts, o
   const [discount, setDiscount] = useState("");
   const [expire_date, setExpire_date] = useState("");
   const [store_id, setStore_id] = useState(null);
+  const [displayStores, setDisplayStores] = useState(false);
 
   const handleDelete = () => {
     onDeleteCreditCard(id);
     fetch(`/credit_cards/${id}`, { method: "DELETE" });
-  };
-
-  const handleDiscountClick = () => {
-    onDisplayDiscounts(id);
   };
 
   const handleSubmit = (e) => {
@@ -41,7 +38,16 @@ const CreditCardCard = ({ credit_card, onDeleteCreditCard, onDisplayDiscounts, o
         {card_name}
         <button onClick={handleDelete}>Delete Credit Card</button>
       </h2>
-      <button onClick={handleDiscountClick}>Store Discount Information</button>
+      <div>
+        {displayStores ? (
+          <div className={"visible"}>
+            {store.store_name} has {store.discount} that expires on {store.expire_date}
+          </div>
+        ) : (
+          <div className={"invisible"}></div>
+        )}
+      </div>
+      <button onClick={() => setDisplayStores(!displayStores)}>Store Discount Information</button>
       <div>
         {displayForm ? (
           <div className={"visible"}>
