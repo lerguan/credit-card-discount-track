@@ -29,7 +29,10 @@ const CreditCardCard = ({ credit_card, onDeleteCreditCard, onDisplayDiscounts, o
       }),
     })
       .then((resp) => resp.json())
-      .then((store) => console.log(store));
+      .then((store) => {
+        setDisplayForm(!displayForm);
+        console.log(store);
+      });
   };
 
   return (
