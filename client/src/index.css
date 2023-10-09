@@ -5,7 +5,7 @@
 }
 
 body {
-  padding: 1rem;
+  padding: 2rem;
   text-align: center;
   background-color: #fafafa;
   display: flex;
@@ -108,14 +108,15 @@ img.flyer-img {
   justify-content: center;
 }
 
-.game-container {
-  height: 300px;
-  width: 200px;
-  background: #26272f;
+.creditcard-container {
+  height: 3rem;
+  width: 25rem;
+  margin: 2rem;
+  padding: 0.5rem;
+  background: aquamarine;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  cursor: pointer;
+  justify-content: left;
   z-index: 1;
 }
 
