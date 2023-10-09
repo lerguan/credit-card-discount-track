@@ -50,18 +50,6 @@ function App() {
       });
   };
 
-  const handleAddCardDiscount = (newCardDiscount) => {
-    const newCardDiscountArray = [...userCreditCards, newCardDiscount];
-    // console.log(newCardDiscountArray);
-    setUserCreditCards(newCardDiscountArray);
-    // console.log(userCreditCards);
-  };
-
-  const handleDeleteDiscount = (id) => {
-    const newUserCardArray = userCreditCards.filter((userCreditCard) => userCreditCard.store.id !== id);
-    setUserCreditCards(newUserCardArray);
-  };
-
   return (
     <BrowserRouter>
       <NavBar user={user} setUser={setUser} />
