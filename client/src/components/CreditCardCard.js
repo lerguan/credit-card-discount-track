@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 
-const CreditCardCard = ({ credit_card, onDeleteCreditCard, onDisplayDiscounts, onAddNewDiscount }) => {
+const CreditCardCard = ({ credit_card, onDeleteCreditCard, onAddNewDiscount }) => {
   const { id, card_name, store } = credit_card;
   const [displayForm, setDisplayForm] = useState(false);
   const [store_name, setStore_name] = useState("");
   const [discount, setDiscount] = useState("");
   const [expire_date, setExpire_date] = useState("");
-  const [store_id, setStore_id] = useState(null);
   const [displayStores, setDisplayStores] = useState(false);
 
   const handleDelete = () => {
