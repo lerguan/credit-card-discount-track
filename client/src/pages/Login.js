@@ -1,13 +1,16 @@
 import { useState } from "react";
 import LoginForm from "../components/LoginForm";
 import SignUpForm from "../components/SignUpForm";
+import wordart from "../images/wordart.png";
 
 const Login = ({ onLogin }) => {
   const [showLogin, setShowLogin] = useState(true);
 
   return (
     <>
-      <h1>Discount Tracker</h1>
+      <header>
+        <img src={wordart} />
+      </header>
       {showLogin ? (
         <>
           <LoginForm onLogin={onLogin} />

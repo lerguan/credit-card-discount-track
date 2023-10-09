@@ -13,6 +13,13 @@ const CreditCardCard = ({ credit_card, onDeleteCreditCard, onAddNewDiscount }) =
     fetch(`/credit_cards/${id}`, { method: "DELETE" });
   };
 
+  const handleDisplayClick = (e) => {
+    e.preventDefault();
+    if (store) {
+      setDisplayStores(!displayStores);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     fetch("/credit_cards", {
@@ -46,7 +53,7 @@ const CreditCardCard = ({ credit_card, onDeleteCreditCard, onAddNewDiscount }) =
           <div className={"invisible"}></div>
         )}
       </div>
-      <button onClick={() => setDisplayStores(!displayStores)}>Store Discount Information</button>
+      <button onClick={handleDisplayClick}>Store Discount Information</button>
       <div>
         {displayForm ? (
           <div className={"visible"}>
@@ -81,7 +88,9 @@ const CreditCardCard = ({ credit_card, onDeleteCreditCard, onAddNewDiscount }) =
                   onChange={(e) => setExpire_date(e.target.value)}
                 />
               </label>
-              <button type="submit">Add</button>
+              <button type="submit" onClick={handleSubmit}>
+                Add
+              </button>
             </form>
           </div>
         ) : (

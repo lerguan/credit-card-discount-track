@@ -57,15 +57,14 @@ const SignUpForm = ({ onLogin }) => {
     <div>
       <form onSubmit={formik.handleSubmit}>
         <label htmlFor="email">Email Address</label>
-        <br />
         <input id="email" name="email" onChange={formik.handleChange} value={formik.values.email} />
         <p style={{ color: "red" }}>{formik.errors.email}</p>
-        <label htmlFor="password">Password</label>
         <br />
+        <label htmlFor="password">Password</label>
         <input id="password" name="password" onChange={formik.handleChange} value={formik.values.password} />
         <p style={{ color: "red" }}>{formik.errors.password}</p>
-        <label htmlFor="confirm_password">Confirm Password</label>
         <br />
+        <label htmlFor="confirm_password">Confirm Password</label>
         <input
           id="confirm_password"
           name="confirm_password"
@@ -73,6 +72,7 @@ const SignUpForm = ({ onLogin }) => {
           value={formik.values.confirm_password}
         />
         <p style={{ color: "red" }}>{formik.errors.confirm_password}</p>
+        <br />
         <button type="submit">Sign Up</button>
       </form>
     </div>

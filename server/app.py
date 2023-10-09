@@ -116,7 +116,7 @@ class Stores(Resource):
             return make_response(stores, 200)
         return {}, 404
     
-    def post(self):
+    def post(self, credit_card_id):
         data = request.get_json()
         new_store = Store(
             store_name=data['store_name'],
@@ -125,17 +125,12 @@ class Stores(Resource):
         )
         db.session.add(new_store)
         db.session.commit()
-
+        new_card = CreditCard.query.filter(CreditCard.id == credit_card_id).first()
+        for attr in new_card:
+            setattr(new_card, attr, new_store[attr])
         return make_response(new_store.to_dict(), 201)
 
 class StoreByID(Resource):
-    def get(self, user_id, id):
-        credit_cards = CreditCard.query.filter((CreditCard.store_id==id) and (CreditCard.user_id==user_id)).first().to_dict()
-        # cards = [card for card in credit_cards]
-        print(cards)
-        # credit_cards_dict = [credit_card.to_dict for credit_card in credit_cards]
-        # return make_response(jsonify(credit_cards.to_dict()), 200)
-    
     def patch(self, user_id, id):
         data = request.get_json()
         store = Store.query.filter(Store.id==id).first()
