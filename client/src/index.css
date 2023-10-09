@@ -109,7 +109,7 @@ img.flyer-img {
 }
 
 .creditcard-container {
-  height: 3rem;
+  /* height: 3rem; */
   width: 25rem;
   margin: 2rem;
   padding: 0.5rem;
@@ -125,16 +125,16 @@ img.flyer-img {
   padding-right: 0.5rem;
 }
 
-.game-card {
-  position: absolute;
-  background-color: #fafafa;
+.creditcard-card {
+  display: inline-flex;
+  justify-content: left;
   z-index: 10;
 }
 
 .delete-button {
-  background-color: rgb(155, 54, 180);
+  background-color: #ff556e;
   /* font-size: 5px 16px; */
-  padding: 3px 8px;
+  padding: 3px 5px;
   color: white;
 }
 

@@ -67,8 +67,8 @@ function App() {
                       value={card_name}
                       onChange={(e) => setCard_name(e.target.value)}
                     />
+                    <button type="submit">Add</button>
                   </label>
-                  <button type="submit">Add</button>
                 </form>
               </div>
             ) : (

@@ -40,9 +40,11 @@ const CreditCardCard = ({ credit_card, onDeleteCreditCard, onAddNewDiscount }) =
 
   return (
     <li className="creditcard-container">
-      <h4>
+      <h4 className="creditcard-card">
         {card_name}
-        <button onClick={handleDelete}>Delete Credit Card</button>
+        <button onClick={handleDelete} className="delete-button">
+          Delete Card
+        </button>
       </h4>
       <div>
         {displayStores ? (
