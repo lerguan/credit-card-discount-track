@@ -1,30 +1,15 @@
 import React, { useState } from "react";
 
-const StoreCard = ({ credit_card, onDeleteDiscount, onEditDiscount }) => {
+const StoreCard = ({ credit_card, onDeleteDiscount }) => {
   const { id, card_name, store, user_id, store_id } = credit_card;
-  console.log(store_id);
+  //   console.log(credit_card);
   const [displayForm, setDisplayForm] = useState(false);
   const [discount, setDiscount] = useState("");
   const [expire_date, setExpire_date] = useState("");
 
-  //   useEffect(() => {
-  //     fetch("/checksession").then((resp) => {
-  //       if (resp.ok) {
-  //         resp.json().then((user) => {
-  //           setUser(user);
-  //           setUserCreditCards(user.credit_cards);
-  //         });
-  //       }
-  //     });
-  //   }, []);
-
   const handleDelete = () => {
     onDeleteDiscount(id);
     fetch(`/credit_cards/${id}/`, { method: "DELETE" });
-  };
-
-  const handleEditClick = () => {
-    onEditDiscount(store.id);
   };
 
   const handleSubmit = (e) => {
@@ -40,7 +25,8 @@ const StoreCard = ({ credit_card, onDeleteDiscount, onEditDiscount }) => {
       .then((resp) => resp.json())
       .then((store) => {
         setDisplayForm(!displayForm);
-        onEditDiscount(store);
+        setDiscount(store.discount);
+        setExpire_date(store.expire_date);
       });
   };
 

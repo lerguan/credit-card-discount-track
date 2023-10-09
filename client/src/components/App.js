@@ -92,11 +92,7 @@ function App() {
           </div>
         </Route>
         <Route exact path="/stores">
-          <Stores
-            userCreditCards={userCreditCards}
-            onDeleteDiscount={handleDeleteDiscount}
-            // onEditDiscount={handleEditDiscount}
-          />
+          <Stores userCreditCards={userCreditCards} />
         </Route>
       </Switch>
     </BrowserRouter>

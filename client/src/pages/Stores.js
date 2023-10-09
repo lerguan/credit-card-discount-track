@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import StoreCard from "../components/StoreCard";
 
-const Stores = ({ userCreditCards, onDeleteDiscount, onEditDiscount }) => {
+const Stores = ({ userCreditCards }) => {
   // const credit_cards = userCreditCards;
   const [credit_cards, setCredit_cards] = useState(userCreditCards);
-  console.log(credit_cards);
+  // console.log(credit_cards);
   const handleEditDiscount = (store) => {
     const newCreditCards = [...credit_cards, store.credit_cards[0]];
-    console.log(newCreditCards);
+    // console.log(newCreditCards);
     setCredit_cards(newCreditCards);
   };
 

@@ -138,8 +138,7 @@ class StoreByID(Resource):
     
     def patch(self, user_id, id):
         data = request.get_json()
-        store = CreditCard.query.filter(self.id==id & self.credit_cards.user_id == user_id).first()
-        print(store)
+        store = Store.query.filter(Store.id==id).first()
         for attr in data:
             setattr(store, attr, data[attr])
         db.session.add(store)
