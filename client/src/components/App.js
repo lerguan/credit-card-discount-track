@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useSyncExternalStore } from "react";
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Login from "../pages/Login";
 import Stores from "../pages/Stores";
 import CardList from "../pages/CardList";
@@ -11,7 +11,6 @@ function App() {
   const [userCreditCards, setUserCreditCards] = useState(null);
   const [displayForm, setDisplayForm] = useState(false);
   const [card_name, setCard_name] = useState("");
-  const history = useHistory();
 
   useEffect(() => {
     fetch("/checksession").then((resp) => {
@@ -19,7 +18,6 @@ function App() {
         resp.json().then((user) => {
           setUser(user);
           setUserCreditCards(user.credit_cards);
-          // setUserStores(user.stores);
         });
       }
     });

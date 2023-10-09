@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import CreditCardCard from "../components/CreditCardCard";
 
 const CardList = ({ userCreditCards, onDeleteCreditCard }) => {
