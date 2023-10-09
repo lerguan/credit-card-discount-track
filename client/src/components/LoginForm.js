@@ -34,11 +34,10 @@ const LoginForm = ({ onLogin }) => {
     <div>
       <form onSubmit={formik.handleSubmit}>
         <label htmlFor="email">Email Address</label>
-        <br />
         <input id="email" name="email" onChange={formik.handleChange} value={formik.values.email} />
         <p style={{ color: "red" }}>{formik.errors.email}</p>
-        <label htmlFor="password">Password</label>
         <br />
+        <label htmlFor="password">Password</label>
         <input id="password" name="password" onChange={formik.handleChange} value={formik.values.password} />
         <p style={{ color: "red" }}>{formik.errors.password}</p>
         <br />
