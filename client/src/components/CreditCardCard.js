@@ -19,7 +19,7 @@ const CreditCardCard = ({ credit_card, onDeleteCreditCard, onDisplayDiscounts, o
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("/stores", {
+    fetch("/credit_cards", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

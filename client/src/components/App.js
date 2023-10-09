@@ -111,9 +111,6 @@ function App() {
             // onEditDiscount={handleEditDiscount}
           />
         </Route>
-        <Route exact path="/card_discounts">
-          <CardDiscount userSingleCard={userSingleCard} />
-        </Route>
       </Switch>
     </BrowserRouter>
   );
