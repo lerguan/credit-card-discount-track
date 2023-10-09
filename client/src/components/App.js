@@ -49,6 +49,7 @@ function App() {
         setDisplayForm(!displayForm);
         const newUserCardArray = [...userCreditCards, newCreditCard];
         setUserCreditCards(newUserCardArray);
+        setDisplayForm(!displayForm);
       });
   };
 
