@@ -129,14 +129,17 @@ class Stores(Resource):
         return make_response(new_store.to_dict(), 201)
 
 class StoreByID(Resource):
-    def get(self, id):
-        store = Store.query.filter(Store.id==id).first().to_dict()
-        return make_response(jsonify(store), 200)
+    def get(self, user_id, id):
+        credit_cards = CreditCard.query.filter((CreditCard.store_id==id) and (CreditCard.user_id==user_id)).first().to_dict()
+        # cards = [card for card in credit_cards]
+        print(cards)
+        # credit_cards_dict = [credit_card.to_dict for credit_card in credit_cards]
+        # return make_response(jsonify(credit_cards.to_dict()), 200)
     
-    def patch(self, id):
+    def patch(self, user_id, id):
         data = request.get_json()
-        store = Store.query.filter(Store.id==id).first()
-
+        store = CreditCard.query.filter(self.id==id & self.credit_cards.user_id == user_id).first()
+        print(store)
         for attr in data:
             setattr(store, attr, data[attr])
         db.session.add(store)
@@ -144,8 +147,8 @@ class StoreByID(Resource):
 
         return make_response(jsonify(store.to_dict()), 200)
     
-    def delete(self, id):
-        store = Store.query.filter(Store.id==id).first()
+    def delete(self, user_id, id):
+        store = CreditCard.query.filter((CreditCard.store_id==id) & (CreditCard.user_id == user_id)).first()
         db.session.delete(store)
         db.session.commit()
 
@@ -158,7 +161,7 @@ api.add_resource(Logout, '/logout', endpoint='logout')
 api.add_resource(CreditCards, '/credit_cards', endpoint='credit_cards')
 api.add_resource(CreditCardByID, '/credit_cards/<int:id>', endpoint='/credit_cards/<int:id>')
 api.add_resource(Stores, '/stores', endpoint='stores')
-api.add_resource(StoreByID, '/stores/<int:id>', endpoint='/stores/<int:id>')
+api.add_resource(StoreByID, '/stores/<int:user_id>/<int:id>', endpoint='/stores/<int:user_id>/<int:id>')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
