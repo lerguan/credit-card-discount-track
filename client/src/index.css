@@ -5,6 +5,7 @@
 }
 
 body {
+  margin: 0;
   padding: 2rem;
   text-align: center;
   background-color: #fafafa;
@@ -36,6 +37,16 @@ form {
   align-items: flex-start;
 }
 
+button {
+  margin-bottom: 0.1rem;
+  margin-left: 0.5rem;
+  border-radius: 5px;
+  border: #fff;
+  padding: 3px 5px;
+  /* padding: 2px 10px; */
+  background-color: rgb(143, 172, 162);
+  color: white;
+}
 input[type="submit"] {
   color: aquamarine;
   border: 1px solid white;
@@ -110,8 +121,8 @@ img.flyer-img {
 
 .creditcard-container {
   /* height: 3rem; */
-  width: 25rem;
-  margin: 2rem;
+  width: 30rem;
+  margin: 5% 2rem;
   padding: 0.5rem;
   background: aquamarine;
   display: flex;
@@ -126,16 +137,22 @@ img.flyer-img {
 }
 
 .creditcard-card {
+  height: 2rem;
   display: inline-flex;
   justify-content: left;
   z-index: 10;
 }
 
 .delete-button {
+  width: 90px;
   background-color: #ff556e;
   /* font-size: 5px 16px; */
-  padding: 3px 5px;
+  /* padding: 3px 5px; */
   color: white;
+  position: static;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  margin-left: 1rem;
 }
 
 .close-button {
