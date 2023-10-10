@@ -31,9 +31,9 @@ const StoreCard = ({ credit_card, onDeleteDiscount }) => {
 
   if (store) {
     return (
-      <li className="store-card">
-        <h2>{store.store_name}</h2>
-        <ul>
+      <li className="store-container">
+        <h4 className="store-card">{store.store_name}</h4>
+        <ul className="store-discount">
           <li>Discount: {store.discount}</li>
           <li>Expire Date: {store.expire_date}</li>
           <li>{card_name}</li>
@@ -69,8 +69,12 @@ const StoreCard = ({ credit_card, onDeleteDiscount }) => {
             <div className={"invisible"}></div>
           )}
         </div>
-        <button onClick={() => setDisplayForm(!displayForm)}>Edit Discount</button>
-        <button onClick={handleDelete}>Remove</button>
+        <button onClick={() => setDisplayForm(!displayForm)} className="edit-button">
+          Edit Discount
+        </button>
+        <button onClick={handleDelete} className="delete-button">
+          Remove
+        </button>
       </li>
     );
   }
