@@ -1,5 +1,4 @@
 # Standard library imports
-import os
 # Remote library imports
 from flask import Flask
 from flask_bcrypt import Bcrypt
