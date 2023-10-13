@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
 const CreditCardCard = ({ credit_card, onDeleteCreditCard, onAddNewDiscount }) => {
-  const { id, card_name, store } = credit_card;
+  const { id, card_name, stores } = credit_card;
   const [displayForm, setDisplayForm] = useState(false);
   const [store_name, setStore_name] = useState("");
   const [discount, setDiscount] = useState("");
   const [expire_date, setExpire_date] = useState("");
   const [displayStores, setDisplayStores] = useState(false);
-  const [store_discounts, setStore_discounts] = useState(store);
+  const [store_discounts, setStore_discounts] = useState(stores);
 
   const handleDelete = () => {
     onDeleteCreditCard(id);
@@ -33,7 +33,7 @@ const CreditCardCard = ({ credit_card, onDeleteCreditCard, onAddNewDiscount }) =
       }),
     })
       .then((resp) => resp.json())
-      .then((store) => {
+      .then((credit_card) => {
         setDisplayForm(!displayForm);
         setStore_discounts(credit_card.stores);
       });

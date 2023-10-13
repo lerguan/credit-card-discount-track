@@ -3,6 +3,8 @@ import StoreCard from "../components/StoreCard";
 
 const Stores = ({ userCreditCards }) => {
   // const credit_cards = userCreditCards;
+  const { card_name, id, stores, user_id } = userCreditCards;
+  // console.log(userCreditCards);
   const [credit_cards, setCredit_cards] = useState(userCreditCards);
   const handleEditDiscount = (store) => {
     const newCreditCards = [...credit_cards, store.credit_cards[0]];

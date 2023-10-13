@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const StoreCard = ({ credit_card, onDeleteDiscount }) => {
   const { id, card_name, stores, user_id } = credit_card;
-  // console.log(credit_card);
+  console.log(stores);
   const [displayForm, setDisplayForm] = useState(false);
   const [discount, setDiscount] = useState("");
   const [expire_date, setExpire_date] = useState("");
@@ -32,51 +32,57 @@ const StoreCard = ({ credit_card, onDeleteDiscount }) => {
 
   if (stores) {
     return (
-      <li className="store-container">
-        <h4 className="store-card">{stores.store_name}</h4>
-        <ul className="store-discount">
-          <li>Discount: {stores.discount}</li>
-          <li>Expire Date: {stores.expire_date}</li>
-          <li>{card_name}</li>
-        </ul>
-        <div>
-          {displayForm ? (
-            <div className={"visible"}>
-              <form onSubmit={handleSubmit}>
-                <label>
-                  Input Discount:
-                  <input
-                    type="text"
-                    name="discount"
-                    placeholder="Discount"
-                    value={discount}
-                    onChange={(e) => setDiscount(e.target.value)}
-                  />
-                </label>
-                <label>
-                  Input Expire Date:
-                  <input
-                    type="text"
-                    name="expire_date"
-                    placeholder="Expire Date"
-                    value={expire_date}
-                    onChange={(e) => setExpire_date(e.target.value)}
-                  />
-                </label>
-                <button type="submit">Edit</button>
-              </form>
-            </div>
-          ) : (
-            <div className={"invisible"}></div>
-          )}
-        </div>
-        <button onClick={() => setDisplayForm(!displayForm)} className="edit-button">
-          Edit Discount
-        </button>
-        <button onClick={handleDelete} className="delete-button">
-          Remove
-        </button>
-      </li>
+      <>
+        {stores.map((store) => {
+          return (
+            <li className="store-container">
+              <h4 className="store-card">{store.store_name}</h4>
+              <ul className="store-discount">
+                <li>Discount: {store.discount}</li>
+                <li>Expire Date: {store.expire_date}</li>
+                <li>{card_name}</li>
+              </ul>
+              <div>
+                {displayForm ? (
+                  <div className={"visible"}>
+                    <form onSubmit={handleSubmit}>
+                      <label>
+                        Input Discount:
+                        <input
+                          type="text"
+                          name="discount"
+                          placeholder="Discount"
+                          value={discount}
+                          onChange={(e) => setDiscount(e.target.value)}
+                        />
+                      </label>
+                      <label>
+                        Input Expire Date:
+                        <input
+                          type="text"
+                          name="expire_date"
+                          placeholder="Expire Date"
+                          value={expire_date}
+                          onChange={(e) => setExpire_date(e.target.value)}
+                        />
+                      </label>
+                      <button type="submit">Edit</button>
+                    </form>
+                  </div>
+                ) : (
+                  <div className={"invisible"}></div>
+                )}
+              </div>
+              <button onClick={() => setDisplayForm(!displayForm)} className="edit-button">
+                Edit Discount
+              </button>
+              <button onClick={handleDelete} className="delete-button">
+                Remove
+              </button>
+            </li>
+          );
+        })}
+      </>
     );
   }
 };
