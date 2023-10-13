@@ -119,7 +119,7 @@ class Stores(Resource):
     def get(self):
         stores = [store.to_dict() for store in Store.query.all()]
         if stores:
-            return make_response(stores, 200)
+            return make_response(jsonify(stores), 200)
         return {}, 404
 
     def post(self):
@@ -131,20 +131,15 @@ class Stores(Resource):
         )
         db.session.add(new_store)
         db.session.commit()
-        credit_card = CreditCard.query.filter(CreditCard.id == credit_card_id).first()
-        # for attr in new_card:
-        #     setattr(new_card, attr, new_store[attr])
         return make_response(new_store.to_dict(), 201)
 
 
 class StoresByCCID(Resource):
     def get(self, credit_card_id):
         stores = [store.to_dict() for store in Store.query.all()]
-        credit_card = (
-            CreditCard.query.filter(CreditCard.id == credit_card_id).first().to_dict()
-        )
+        credit_card = CreditCard.query.filter(CreditCard.id == credit_card_id).first()
         if credit_card:
-            return make_response(jsonify(credit_card), 200)
+            return make_response(jsonify(credit_card.to_dict()), 200)
         return {}, 404
 
     def post(self, credit_card_id):
@@ -166,6 +161,11 @@ class StoresByCCID(Resource):
 
 
 class StoreByID(Resource):
+    def get(self, id):
+        store = Store.query.filter(Store.id == id).first()
+        if store:
+            return make_response(jsonify(store.to_dict()), 200)
+
     def patch(self, id):
         data = request.get_json()
         store = Store.query.filter(Store.id == id).first()

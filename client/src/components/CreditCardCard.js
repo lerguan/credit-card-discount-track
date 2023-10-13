@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const CreditCardCard = ({ credit_card, onDeleteCreditCard, onAddNewDiscount }) => {
+const CreditCardCard = ({ credit_card, onDeleteCreditCard }) => {
   const { id, card_name, stores } = credit_card;
   const [displayForm, setDisplayForm] = useState(false);
   const [store_name, setStore_name] = useState("");
