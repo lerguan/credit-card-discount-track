@@ -17,6 +17,7 @@ function App() {
       if (resp.ok) {
         resp.json().then((user) => {
           setUser(user);
+          console.log(user);
           setUserCreditCards(user.credit_cards);
         });
       }

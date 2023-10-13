@@ -7,6 +7,7 @@ const CreditCardCard = ({ credit_card, onDeleteCreditCard, onAddNewDiscount }) =
   const [discount, setDiscount] = useState("");
   const [expire_date, setExpire_date] = useState("");
   const [displayStores, setDisplayStores] = useState(false);
+  const [store_discounts, setStore_discounts] = useState(store);
 
   const handleDelete = () => {
     onDeleteCreditCard(id);
@@ -22,7 +23,7 @@ const CreditCardCard = ({ credit_card, onDeleteCreditCard, onAddNewDiscount }) =
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("/stores", {
+    fetch(`/stores/${id}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -35,6 +36,10 @@ const CreditCardCard = ({ credit_card, onDeleteCreditCard, onAddNewDiscount }) =
       .then((store) => {
         setDisplayForm(!displayForm);
         console.log(store);
+        setStore_discounts(store);
+        // setStore_name(store.store_name);
+        // setDiscount(store.discount);
+        // setExpire_date(store.expire_date);
       });
   };
 
@@ -48,9 +53,15 @@ const CreditCardCard = ({ credit_card, onDeleteCreditCard, onAddNewDiscount }) =
       </h4>
       <div>
         {displayStores ? (
-          <div className={"visible"}>
-            {store.store_name} has {store.discount} that expires on {store.expire_date}
-          </div>
+          <ul className="credit-cards">
+            {store_discounts.map((store_discount) => {
+              return (
+                <div className={"visible"}>
+                  {store_discount.store_name} has {store_discount.discount} that expires on {store_discount.expire_date}
+                </div>
+              );
+            })}
+          </ul>
         ) : (
           <div className={"invisible"}></div>
         )}

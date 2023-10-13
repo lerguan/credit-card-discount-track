@@ -11,7 +11,7 @@ from sqlalchemy.exc import IntegrityError
 from config import app, db, api
 
 # Add your model imports
-from models import User, CreditCard, Store
+from models import User, CreditCard, Store, stores_credit_cards
 
 
 class Signup(Resource):
@@ -57,8 +57,8 @@ class Login(Resource):
         if user:
             if user.authenticate(password):
                 session["user_id"] = user.id
-                # db.session.add(user)
-                # db.session.commit()
+                db.session.add(user)
+                db.session.commit()
                 return make_response(jsonify(user.to_dict()), 200)
 
         return {"error": "401 Unauthoerized"}, 401
@@ -131,9 +131,37 @@ class Stores(Resource):
         )
         db.session.add(new_store)
         db.session.commit()
-        # new_card = CreditCard.query.filter(CreditCard.id == credit_card_id).first()
+        credit_card = CreditCard.query.filter(CreditCard.id == credit_card_id).first()
         # for attr in new_card:
         #     setattr(new_card, attr, new_store[attr])
+        return make_response(new_store.to_dict(), 201)
+
+
+class StoresByCCID(Resource):
+    def get(self, credit_card_id):
+        stores = [store.to_dict() for store in Store.query.all()]
+        credit_card = (
+            CreditCard.query.filter(CreditCard.id == credit_card_id).first().to_dict()
+        )
+        if credit_card:
+            return make_response(jsonify(credit_card), 200)
+        return {}, 404
+
+    def post(self, credit_card_id):
+        data = request.get_json()
+        new_store = Store(
+            store_name=data["store_name"],
+            discount=data["discount"],
+            expire_date=data["expire_date"],
+        )
+        db.session.add(new_store)
+        db.session.commit()
+        store_credit_card = stores_credit_cards(
+            store_id=new_store.id,
+            credit_card_id=credit_card_id,
+        )
+        db.session.add(store_credit_card)
+        db.session.commit()
         return make_response(new_store.to_dict(), 201)
 
 
@@ -171,6 +199,11 @@ api.add_resource(
     StoreByID,
     "/stores/<int:user_id>/<int:id>",
     endpoint="/stores/<int:user_id>/<int:id>",
+)
+api.add_resource(
+    StoresByCCID,
+    "/stores/<int:credit_card_id>",
+    endpoint="/stores/<int:credit_card_id>",
 )
 
 if __name__ == "__main__":

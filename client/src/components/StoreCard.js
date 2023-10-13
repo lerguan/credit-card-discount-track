@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 
 const StoreCard = ({ credit_card, onDeleteDiscount }) => {
-  const { id, card_name, store, user_id } = credit_card;
+  const { id, card_name, stores, user_id } = credit_card;
+  console.log(credit_card);
   const [displayForm, setDisplayForm] = useState(false);
   const [discount, setDiscount] = useState("");
   const [expire_date, setExpire_date] = useState("");
@@ -13,7 +14,7 @@ const StoreCard = ({ credit_card, onDeleteDiscount }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`/stores/${user_id}/${store.id}`, {
+    fetch(`/stores/${user_id}/${stores.id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -29,13 +30,13 @@ const StoreCard = ({ credit_card, onDeleteDiscount }) => {
       });
   };
 
-  if (store) {
+  if (stores) {
     return (
       <li className="store-container">
-        <h4 className="store-card">{store.store_name}</h4>
+        <h4 className="store-card">{stores.store_name}</h4>
         <ul className="store-discount">
-          <li>Discount: {store.discount}</li>
-          <li>Expire Date: {store.expire_date}</li>
+          <li>Discount: {stores.discount}</li>
+          <li>Expire Date: {stores.expire_date}</li>
           <li>{card_name}</li>
         </ul>
         <div>
