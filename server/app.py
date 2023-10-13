@@ -15,6 +15,12 @@ from models import User, CreditCard, Store, stores_credit_cards
 
 
 class Signup(Resource):
+    def get(self):
+        if session.get("user_id"):
+            user = User.query.filter(User.id == session["user_id"]).first()
+            return make_response(jsonify(user.to_dict()), 200)
+        return {"error": "401 Unauthorized"}, 401
+
     def post(self):
         request_json = request.get_json()
         email = request_json.get("email")

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 const CreditCardCard = ({ credit_card, onDeleteCreditCard }) => {
   const { id, card_name, stores } = credit_card;

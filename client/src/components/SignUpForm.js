@@ -1,19 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
 const SignUpForm = ({ onLogin }) => {
-  const [user, setUser] = useState([{}]);
   const [refreshPage, setRefreshPage] = useState(false);
   const [errors, setErrors] = useState([]);
-
-  useEffect(() => {
-    fetch("/signup")
-      .then((resp) => resp.json())
-      .then((user) => {
-        setUser(user);
-      });
-  }, [refreshPage]);
 
   const formSchema = yup.object().shape({
     email: yup.string().email("Invalid email").required("Must enter email"),
