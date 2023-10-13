@@ -16,7 +16,7 @@ const CreditCardCard = ({ credit_card, onDeleteCreditCard, onAddNewDiscount }) =
 
   const handleDisplayClick = (e) => {
     e.preventDefault();
-    if (store) {
+    if (store_discounts) {
       setDisplayStores(!displayStores);
     }
   };
@@ -35,11 +35,7 @@ const CreditCardCard = ({ credit_card, onDeleteCreditCard, onAddNewDiscount }) =
       .then((resp) => resp.json())
       .then((store) => {
         setDisplayForm(!displayForm);
-        console.log(store);
-        setStore_discounts(store);
-        // setStore_name(store.store_name);
-        // setDiscount(store.discount);
-        // setExpire_date(store.expire_date);
+        setStore_discounts(credit_card.stores);
       });
   };
 

@@ -62,7 +62,7 @@ class Store(db.Model, SerializerMixin):
 
 class CreditCard(db.Model, SerializerMixin):
     __tablename__ = "credit_cards"
-    serialize_rules = ("-user.credit_cards", "-store.credit_cards")
+    serialize_rules = ("-user.credit_cards", "-stores.credit_cards")
 
     id = db.Column(db.Integer, primary_key=True)
     card_name = db.Column(db.String)

@@ -156,11 +156,11 @@ class StoresByCCID(Resource):
         )
         db.session.add(new_store)
         db.session.commit()
-        store_credit_card = stores_credit_cards(
+        store_credit_card = stores_credit_cards.insert().values(
             store_id=new_store.id,
             credit_card_id=credit_card_id,
         )
-        db.session.add(store_credit_card)
+        db.session.execute(store_credit_card)
         db.session.commit()
         return make_response(new_store.to_dict(), 201)
 
