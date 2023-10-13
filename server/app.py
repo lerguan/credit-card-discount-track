@@ -166,7 +166,7 @@ class StoresByCCID(Resource):
 
 
 class StoreByID(Resource):
-    def patch(self, user_id, id):
+    def patch(self, id):
         data = request.get_json()
         store = Store.query.filter(Store.id == id).first()
         for attr in data:
@@ -176,14 +176,12 @@ class StoreByID(Resource):
 
         return make_response(jsonify(store.to_dict()), 200)
 
-    def delete(self, user_id, id):
-        store = CreditCard.query.filter(
-            (CreditCard.store_id == id) & (CreditCard.user_id == user_id)
-        ).first()
-        db.session.delete(store)
-        db.session.commit()
-
-        return make_response("", 204)
+    def delete(self, id):
+        store = Store.query.filter((Store.id == id)).first()
+        if store:
+            db.session.delete(store)
+            db.session.commit()
+            return make_response("", 204)
 
 
 api.add_resource(Signup, "/signup", endpoint="signup")
@@ -197,8 +195,8 @@ api.add_resource(
 api.add_resource(Stores, "/stores", endpoint="stores")
 api.add_resource(
     StoreByID,
-    "/stores/<int:user_id>/<int:id>",
-    endpoint="/stores/<int:user_id>/<int:id>",
+    "/stores/<int:id>",
+    endpoint="/stores/<int:id>",
 )
 api.add_resource(
     StoresByCCID,
