@@ -90,10 +90,10 @@ if __name__ == "__main__":
         ]
         for store in stores:
             for i in range(rc.randint(1, 5)):
-                user = rc.choice(users)
-                # if store not in user.stores:
-                #     user.stores.append(store)
-                #     db.session.add(user)
+                credit_card = rc.choice(credit_card_list)
+                # if store not in credit_cards.stores:
+                #     credit_cards.stores.append(store)
+                #     db.session.add(credit_cards)
                 #     db.session.commit()
 
                 credit_card = CreditCard(
