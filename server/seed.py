@@ -90,17 +90,12 @@ if __name__ == "__main__":
         ]
         for store in stores:
             for i in range(rc.randint(1, 5)):
-                credit_card = rc.choice(credit_card_list)
-                if store not in credit_card.stores:
-                    credit_card.stores.append(store)
-                    db.session.add(credit_card)
-                    db.session.commit()
-
-                credit_card_obj = CreditCard(
+                user = rc.choice(users)
+                credit_card = CreditCard(
                     card_name=rc.choice(credit_card_list),
                     user_id=user.id,
                 )
-                credit_cards.append(credit_card_obj)
+                credit_cards.append(credit_card)
 
         db.session.bulk_save_objects(credit_cards)
         db.session.commit()
