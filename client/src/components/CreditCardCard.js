@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 
-const CreditCardCard = ({ credit_card, onDeleteCreditCard }) => {
-  const { id, card_name, stores } = credit_card;
+const CreditCardCard = ({ userCreditCard, onDeleteCreditCard, onAddStoreToCreditCard }) => {
+  // console.log(credit_card);
+  const { id, card_name, stores } = userCreditCard;
   const [displayForm, setDisplayForm] = useState(false);
   const [store_name, setStore_name] = useState("");
   const [discount, setDiscount] = useState("");
   const [expire_date, setExpire_date] = useState("");
   const [displayStores, setDisplayStores] = useState(false);
-  const [store_discounts, setStore_discounts] = useState(stores);
+  // const [store_info, setStore_info] = useState(stores);
 
   const handleDelete = () => {
     onDeleteCreditCard(id);
@@ -16,7 +17,7 @@ const CreditCardCard = ({ credit_card, onDeleteCreditCard }) => {
 
   const handleDisplayClick = (e) => {
     e.preventDefault();
-    if (store_discounts) {
+    if (stores) {
       setDisplayStores(!displayStores);
     }
   };
@@ -33,12 +34,15 @@ const CreditCardCard = ({ credit_card, onDeleteCreditCard }) => {
       }),
     })
       .then((resp) => resp.json())
-      .then((credit_card) => {
+      .then((store) => {
         setDisplayForm(!displayForm);
-        setStore_discounts(credit_card.stores);
+        // console.log(store.credit_cards);
+        onAddStoreToCreditCard(store.credit_cards);
+        // setStore_info(store.stores);
       });
   };
 
+  // console.log(store_discounts);
   return (
     <li className="creditcard-container">
       <h4 className="creditcard-card">
@@ -50,10 +54,10 @@ const CreditCardCard = ({ credit_card, onDeleteCreditCard }) => {
       <div>
         {displayStores ? (
           <ul className="credit-cards">
-            {store_discounts.map((store_discount) => {
+            {stores.map((store) => {
               return (
-                <div className={"visible"}>
-                  {store_discount.store_name} has {store_discount.discount} that expires on {store_discount.expire_date}
+                <div className={"visible"} key={store.id}>
+                  {store.store_name} has {store.discount} that expires on {store.expire_date}
                 </div>
               );
             })}

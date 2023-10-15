@@ -1,15 +1,18 @@
 import React from "react";
 import CreditCardCard from "../components/CreditCardCard";
 
-const CardList = ({ userCreditCards, onDeleteCreditCard }) => {
-  const credit_cards = userCreditCards;
-
-  if (credit_cards) {
+const CardList = ({ userCreditCards, onDeleteCreditCard, onAddStoreToCreditCard }) => {
+  if (userCreditCards) {
     return (
       <ul className="credit-cards">
-        {credit_cards.map((credit_card) => {
+        {userCreditCards.map((userCreditCard) => {
           return (
-            <CreditCardCard key={credit_card.id} credit_card={credit_card} onDeleteCreditCard={onDeleteCreditCard} />
+            <CreditCardCard
+              key={userCreditCard.id}
+              userCreditCard={userCreditCard}
+              onDeleteCreditCard={onDeleteCreditCard}
+              onAddStoreToCreditCard={onAddStoreToCreditCard}
+            />
           );
         })}
       </ul>

@@ -1,24 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-const StoreDiscountCard = ({ store, onDeleteStoreDiscount }) => {
+const StoreDiscountCard = ({ store, card_name, onDeleteStore, onEditStoreDiscount }) => {
   const { id } = store;
   const [displayForm, setDisplayForm] = useState(false);
   const [discount, setDiscount] = useState("");
   const [expire_date, setExpire_date] = useState("");
-  const [card_name, setCard_name] = useState(null);
-
-  useEffect(() => {
-    fetch(`/stores/${id}`).then((resp) => {
-      if (resp.ok) {
-        resp.json().then((store) => {
-          setCard_name(store.credit_cards[0].card_name);
-        });
-      }
-    });
-  }, []);
 
   const handleDelete = () => {
-    onDeleteStoreDiscount(id);
+    onDeleteStore(id);
     fetch(`/stores/${id}`, { method: "DELETE" });
   };
 
@@ -34,9 +23,8 @@ const StoreDiscountCard = ({ store, onDeleteStoreDiscount }) => {
     })
       .then((resp) => resp.json())
       .then((store) => {
+        onEditStoreDiscount(store.credit_cards);
         setDisplayForm(!displayForm);
-        setDiscount(store.discount);
-        setExpire_date(store.expire_date);
       });
   };
 

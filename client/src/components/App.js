@@ -48,12 +48,42 @@ function App() {
       });
   };
 
+  const handleAddStoreToCreditCard = (newStoreCreditCard) => {
+    const newUserCreditCard = newStoreCreditCard[0];
+    const newUserCardArray = userCreditCards.map((userCreditCard) =>
+      newUserCreditCard.id === userCreditCard.id ? newUserCreditCard : userCreditCard
+    );
+    setUserCreditCards(newUserCardArray);
+  };
+
+  const handleDeletStore = (id) => {
+    const newUserCardArray = userCreditCards.map((userCreditCard) => {
+      if (userCreditCard.stores) {
+        userCreditCard.stores = userCreditCard.stores.filter((store) => store.id !== id);
+      }
+      return userCreditCard;
+    });
+    setUserCreditCards(newUserCardArray);
+  };
+
+  const handleEditStoreDiscount = (newStoreDiscount) => {
+    const newUserCreditCard = newStoreDiscount[0];
+    const newUserCardArray = userCreditCards.map((userCreditCard) =>
+      userCreditCard.id === newUserCreditCard.id ? newUserCreditCard : userCreditCard
+    );
+    setUserCreditCards(newUserCardArray);
+  };
+
   return (
     <BrowserRouter>
       <NavBar user={user} setUser={setUser} />
       <Switch>
         <Route path="/creditcards">
-          <CardList userCreditCards={userCreditCards} onDeleteCreditCard={handleDeleteCreditCard} />
+          <CardList
+            userCreditCards={userCreditCards}
+            onDeleteCreditCard={handleDeleteCreditCard}
+            onAddStoreToCreditCard={handleAddStoreToCreditCard}
+          />
           <div>
             {displayForm ? (
               <div className={"visible"}>
@@ -78,7 +108,11 @@ function App() {
           </div>
         </Route>
         <Route exact path="/stores">
-          <Stores userCreditCards={userCreditCards} />
+          <Stores
+            userCreditCards={userCreditCards}
+            onDeleteStore={handleDeletStore}
+            onEditStoreDiscount={handleEditStoreDiscount}
+          />
         </Route>
       </Switch>
     </BrowserRouter>
