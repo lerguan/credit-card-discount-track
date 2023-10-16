@@ -8,7 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [userCreditCards, setUserCreditCards] = useState(null);
+  const [userCreditCards, setUserCreditCards] = useState([]);
   const [displayForm, setDisplayForm] = useState(false);
   const [card_name, setCard_name] = useState("");
 
