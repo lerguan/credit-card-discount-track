@@ -24,7 +24,9 @@ const LoginForm = ({ onLogin }) => {
         if (resp.ok) {
           resp.json().then((user) => onLogin(user));
         } else {
-          resp.json().then((err) => setErrors(err.errors));
+          resp.json().then((err) => {
+            setErrors(err.error);
+          });
         }
       });
     },
@@ -42,11 +44,7 @@ const LoginForm = ({ onLogin }) => {
         <p style={{ color: "red" }}>{formik.errors.password}</p>
         <br />
         <button type="submit">Login</button>
-        <div>
-          {errors.map((err) => (
-            <div key={err}>{err}</div>
-          ))}
-        </div>
+        <div>{errors}</div>
       </form>
     </div>
   );
