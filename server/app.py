@@ -48,7 +48,8 @@ class CheckSession(Resource):
     def get(self):
         if session.get("user_id"):
             user = User.query.filter(User.id == session["user_id"]).first()
-            return make_response(jsonify(user.to_dict()), 200)
+            if user:
+                return make_response(jsonify(user.to_dict()), 200)
         return {"error": "401 Unauthorized"}, 401
 
 
@@ -67,7 +68,7 @@ class Login(Resource):
                 db.session.commit()
                 return make_response(jsonify(user.to_dict()), 200)
 
-        return {"error": "401 Unauthoerized"}, 401
+        return {"error": "Unauthorized! Please try again!"}, 401
 
 
 class Logout(Resource):
