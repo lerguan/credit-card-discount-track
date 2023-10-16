@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 
 const CreditCardCard = ({ userCreditCard, onDeleteCreditCard, onAddStoreToCreditCard }) => {
-  // console.log(credit_card);
   const { id, card_name, stores } = userCreditCard;
   const [displayForm, setDisplayForm] = useState(false);
   const [store_name, setStore_name] = useState("");
   const [discount, setDiscount] = useState("");
   const [expire_date, setExpire_date] = useState("");
   const [displayStores, setDisplayStores] = useState(false);
-  // const [store_info, setStore_info] = useState(stores);
 
   const handleDelete = () => {
     onDeleteCreditCard(id);
@@ -36,13 +34,10 @@ const CreditCardCard = ({ userCreditCard, onDeleteCreditCard, onAddStoreToCredit
       .then((resp) => resp.json())
       .then((store) => {
         setDisplayForm(!displayForm);
-        // console.log(store.credit_cards);
         onAddStoreToCreditCard(store.credit_cards);
-        // setStore_info(store.stores);
       });
   };
 
-  // console.log(store_discounts);
   return (
     <li className="creditcard-container">
       <h4 className="creditcard-card">
