@@ -2,9 +2,9 @@
 
 ## Introduction
 
-Nowadays, there are many credit cards offer various discount when shopping online or local retail stores. However, with this many credit cards and discounts, people are easily lost track what credit cards offer discounts when shopping at a store. This full-stack application is used for users to track their credit card discounts on retail stores. Users need to create an account use their email and then users can store their credit cards in their account and start adding discount on retail stores. When shopping a store, user can see which credit card they have offer discounts.
+Nowadays, there are many credit cards that offer various discounts when shopping online or at local retail stores. However, with this many credit cards and discounts, people easily lose track of what credit cards offer discounts when shopping at a store. This full-stack application is used for users to track their credit card discounts in retail stores. Users need to create an account using their email and then users can store their credit cards in their account and start adding discounts on retail stores. When shopping in a store, users can see which credit card they have offer discounts.
 
-The `client` folder contains a React application for the frontend, while the `server` folder contains a Flask application for the backend.
+The `client` folder contains a React application for the front-end, while the `server` folder contains a Flask application for the back-end.
 
 A `migrations` folder will be added to the `server` directory when a developer would like create the database.
 
