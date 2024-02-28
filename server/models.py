@@ -23,8 +23,9 @@ class User(db.Model, SerializerMixin):
     email = db.Column(db.String, unique=True, nullable=False)
     _password_hash = db.Column(db.String)
 
-    credit_cards = db.relationship("CreditCard", back_populates="user")
-    # stores = association_proxy('credit_cards', 'store', creator=lambda sr:CreditCard(store=sr))
+    credit_cards = db.relationship(
+        "CreditCard", back_populates="user", cascade="all,delete"
+    )
 
     @hybrid_property
     def password_hash(self):
@@ -52,9 +53,11 @@ class Store(db.Model, SerializerMixin):
     expire_date = db.Column(db.String)
 
     credit_cards = db.relationship(
-        "CreditCard", secondary=stores_credit_cards, back_populates="stores"
+        "CreditCard",
+        secondary=stores_credit_cards,
+        back_populates="stores",
+        cascade="all,delete",
     )
-    # users = association_proxy('credit_cards', 'user', creator=lambda ur:CreditCard(ur))
 
     def __repr__(self):
         return f"<Store {self.store_name} has {self.discount} on {self.credit_cards} expires on {self.expire_date}> "
@@ -68,11 +71,13 @@ class CreditCard(db.Model, SerializerMixin):
     card_name = db.Column(db.String)
 
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    # store_id = db.Column(db.Integer, db.ForeignKey("stores.id"))
 
-    user = db.relationship("User", back_populates="credit_cards")
+    user = db.relationship("User", back_populates="credit_cards", cascade="all,delete")
     stores = db.relationship(
-        "Store", secondary=stores_credit_cards, back_populates="credit_cards"
+        "Store",
+        secondary=stores_credit_cards,
+        back_populates="credit_cards",
+        cascade="all,delete",
     )
 
     def __repr__(self):
